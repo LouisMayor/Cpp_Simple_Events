@@ -21,7 +21,7 @@ public:
 		_funcs.push_back( std::function<_rTy( _pTy )>( func ) );
 	}
 
-	template<class _ptrFunc>
+	template<typename _ptrFunc>
 	void operator-=( _ptrFunc func )
 	{
 		std::function<_rTy( _pTy )> to_find( func );
