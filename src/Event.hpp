@@ -6,7 +6,7 @@
 
 /* Wanting to create an extremely simple event system. Design based on Unity Actions */
 
-template<typename _rTy, typename _pTy>
+template<typename _pTy>
 class Event
 {
 public:
@@ -18,16 +18,16 @@ public:
 	template<typename _ptrFunc>
 	void operator+=( _ptrFunc func )
 	{
-		_funcs.push_back( std::function<_rTy( _pTy )>( func ) );
+		_funcs.push_back( std::function<void( _pTy )>( func ) );
 	}
 
 	template<typename _ptrFunc>
 	void operator-=( _ptrFunc func )
 	{
-		std::function<_rTy( _pTy )> to_find( func );
+		std::function<void( _pTy )> to_find( func );
 		size_t addr_to_find = get_addr( to_find );
 
-		std::vector <std::vector<std::function < _rTy( _pTy )> >::iterator> to_remove;
+		std::vector <std::vector<std::function < void( _pTy )> >::iterator> to_remove;
 
 		for( auto it = _funcs.begin( ); it != _funcs.end( ); ++it )
 		{
@@ -51,12 +51,12 @@ public:
 		}
 	}
 private:
-	std::vector<std::function<_rTy( _pTy )>> _funcs;
+	std::vector<std::function<void( _pTy )>> _funcs;
 
 	// src: https://stackoverflow.com/a/18039824
-	size_t get_addr( std::function < _rTy( _pTy ) > f )
+	size_t get_addr( std::function < void( _pTy ) > f )
 	{
-		typedef _rTy( fnType )( _pTy );
+		typedef void( fnType )( _pTy );
 		fnType ** fnPointer = f.template target<fnType*>( );
 		return reinterpret_cast<size_t> (*fnPointer);
 	}

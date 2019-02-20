@@ -1,6 +1,6 @@
 #include "A.h"
 
-Event<void, int> A::contructed;
+Event<int> A::contructed;
 
 A::A( )
 {

@@ -10,7 +10,7 @@ public:
 	A( const A& other ) = delete;
 	A operator=( const A& other ) = delete;
 
-	static Event<void, int> contructed;
+	static Event<int> contructed;
 private:
 	int _id;
 };

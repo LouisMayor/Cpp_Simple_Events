@@ -2,14 +2,14 @@
 #include "C.h"
 #include "B.h"
 
-int add_one (int x )
+void add_one (int x )
 {
-	return x + 1;
+	x += 1;
 }
 
-int add_two( int x )
+void add_two( int x )
 {
-	return x + 2;
+	x += 2;
 }
 
 int global_x = 0;
@@ -21,7 +21,7 @@ void set_x( int x )
 
 int main()
 {
-	static Event<void, int> change_pos;
+	static Event<int> change_pos;
 
 	change_pos += set_x;
 
@@ -35,7 +35,7 @@ int main()
 	change_pos -= set_x;
 
 	// event
-	static Event<int, int> something_happened;
+	static Event<int> something_happened;
 
 	// something registering a function to call
 	something_happened += add_one;
