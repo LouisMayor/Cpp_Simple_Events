@@ -12,8 +12,20 @@ class Event
 public:
 	Event() = default;
 
+	~Event()
+	{
+		_funcs.clear();
+	}
+
 	Event(const Event& other) = delete;
 	Event operator=(const Event& other) = delete;
+
+	template<typename _funcPointer>
+	void operator=(_funcPointer func)
+	{
+		_funcs.clear();
+		_funcs.push_back(std::function<void(_paramT)>(func));
+	}
 
 	template<typename _funcPointer>
 	void operator+=(_funcPointer func)
